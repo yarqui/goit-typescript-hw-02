@@ -12,12 +12,37 @@ type User = {
   surname: string;
   email: string;
   password: string;
-}
+};
 
-function createOrUpdateUser(initialValues: User) {
-  // Оновлення користувача
-}
+const users: User[] = [
+  {
+    name: "Yar",
+    surname: "Pelykh",
+    email: "dogmit@gmail.com",
+    password: "qwerty",
+  },
+];
 
-createOrUpdateUser({ email: 'user@mail.com', password: 'password123' });
+const createOrUpdateUser = (initialValues: Partial<User>): User => {
+  const userExists: User | undefined = users.find(
+    (user) => user.email === initialValues.email
+  );
+
+  if (userExists) {
+    return { ...userExists, ...initialValues };
+  }
+
+  const newUser: User = {
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    ...initialValues,
+  };
+
+  return newUser;
+};
+
+createOrUpdateUser({ email: "user@mail.com", password: "password123" });
 
 export {};
